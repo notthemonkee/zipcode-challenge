@@ -14,7 +14,7 @@ public class Application {
 		System.out.println(zipCodeRange);
 
 
-		ZipCodeRangeCollection zips = new ZipCodeRangeCollection();
+		ZipCodeRangeSet zips = new ZipCodeRangeSet();
 
 		System.out.println("Test set 1");
 		zips.add(new ZipCodeRange("94133", "94133"))
@@ -29,7 +29,7 @@ public class Application {
 
 
 		System.out.println("Test set 2");
-		zips = new ZipCodeRangeCollection();
+		zips = new ZipCodeRangeSet();
 		zips.add(new ZipCodeRange("94133", "94133"))
 			 .add(new ZipCodeRange("94200", "94299"))
 			 .add(new ZipCodeRange("94226", "94399"));
@@ -40,7 +40,7 @@ public class Application {
 
 
 		System.out.println("Test set 3");
-		zips = new ZipCodeRangeCollection();
+		zips = new ZipCodeRangeSet();
 		zips.add("00001", "12343")
 			 .add("12345", "67890")
 			 .add("12345", "67890")

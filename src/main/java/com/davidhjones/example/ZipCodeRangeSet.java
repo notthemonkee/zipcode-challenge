@@ -6,23 +6,24 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 
-
-// TODO: dave 2018-12-16 rename to set
-public class ZipCodeRangeCollection {
+public class ZipCodeRangeSet {
 
 	private final SortedSet<ZipCodeRange> zipRanges = new TreeSet<>();
 
-	ZipCodeRangeCollection add(String lowerBound, String upperBound) {
+
+	ZipCodeRangeSet add(String lowerBound, String upperBound) {
 		zipRanges.add(new ZipCodeRange(lowerBound, upperBound));
 		return this;
 	}
 
-	ZipCodeRangeCollection add(ZipCodeRange zipCodeRange) {
+
+	ZipCodeRangeSet add(ZipCodeRange zipCodeRange) {
 		if (zipCodeRange != null) {
 			zipRanges.add(zipCodeRange);
 		}
 		return this;
 	}
+
 
 	Set<ZipCodeRange> getAllRanges() {
 		return new TreeSet<>(zipRanges);

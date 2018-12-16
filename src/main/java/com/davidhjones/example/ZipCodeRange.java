@@ -5,6 +5,7 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 	private final String lowerBound;
 	private final String upperBound;
 
+
 	ZipCodeRange(String zip1, String zip2) {
 
 		// Both ZIP parameters must be valid upon construction of a ZipCodeRange.
@@ -46,6 +47,7 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 		return getLowerBound().equals(getUpperBound());
 	}
 
+
 	boolean isLessThan(ZipCodeRange range) {
 		if (range == null) {
 			return false;
@@ -63,6 +65,7 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 		return rangeLowerVal == myUpperVal + 1;
 	}
 
+
 	boolean overlapsLowBound(ZipCodeRange range) {
 		if (range == null) {
 			return false;
@@ -71,9 +74,11 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 			 && (getUpperBound().compareTo(range.getUpperBound()) < 0);
 	}
 
+
 	private String getCompareToken() {
 		return getLowerBound() + "-" + getUpperBound();
 	}
+
 
 	@Override
 	public boolean equals(Object comparee) {
@@ -91,15 +96,18 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 		}
 	}
 
+
 	@Override
 	public int hashCode() {
 		return getLowerBound().hashCode() + getUpperBound().hashCode() + 6;
 	}
 
+
 	@Override
 	public String toString() {
 		return String.format("[%s,%s]", lowerBound, upperBound);
 	}
+
 
 	@Override
 	public int compareTo(ZipCodeRange comparee) {
