@@ -18,13 +18,27 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 	}
 
 
-	public String getLowerBound() {
+	String getLowerBound() {
 		return lowerBound;
 	}
 
 
-	public String getUpperBound() {
+	String getUpperBound() {
 		return upperBound;
+	}
+
+
+	boolean isLessThan(ZipCodeRange range) {
+		return (getUpperBound().compareTo(range.getLowerBound()) < 0);
+	}
+
+	boolean contains(ZipCodeRange range) {
+		return (getLowerBound().compareTo(range.getLowerBound()) <= 0)
+			 && (getUpperBound().compareTo(range.getUpperBound()) >= 0);
+	}
+
+	boolean overlapsLowBound(ZipCodeRange range) {
+		return getUpperBound().compareTo(range.getLowerBound()) >= 1;
 	}
 
 
