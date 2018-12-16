@@ -21,8 +21,9 @@ public class Application {
 			 .add(new ZipCodeRange("94200", "94299"))
 			 .add(new ZipCodeRange("94600", "94699"));
 
-		System.out.println("Source ranges:");
-		printRanges(zips.getRanges());
+
+		System.out.println(zips.mergeRanges().toArray());
+
 		System.out.println("Merged ranges");
 		printRanges(zips.mergeRanges());
 
@@ -34,8 +35,6 @@ public class Application {
 			 .add(new ZipCodeRange("94226", "94399"));
 
 
-		System.out.println("Source ranges:");
-		printRanges(zips.getRanges());
 		System.out.println("Merged ranges");
 		printRanges(zips.mergeRanges());
 
@@ -52,8 +51,6 @@ public class Application {
 			 .add("67891", "67891")
 			 .add("12345", "67890");
 
-		System.out.println("Source ranges:");
-		printRanges(zips.getRanges());
 		System.out.println("Merged ranges");
 		printRanges(zips.mergeRanges());
 
