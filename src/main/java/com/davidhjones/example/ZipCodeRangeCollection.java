@@ -51,20 +51,19 @@ public class ZipCodeRangeCollection {
 				//				else {
 
 
-				// test range is completely within this last range so skip it
 				if (lastMerged.contains(rangeToCheck)) {
+					// The zip range we're checking is completely within the last merge range so we can skip it and move on.
 					continue;
 				}
-
-				// low bound of test range is greater than upper bound of merged list, just append test range.
 				else if (lastMerged.isLessThan(rangeToCheck)) {
+					// The low bound of the range we're checking is above the upper bound of the
+					// last merge range so we just append this range to the end of the merged ranges.
 					mergedRanges.add(rangeToCheck);
 				}
-
-
-				// low bound of test range is within last range in merge list, update the last range in merged
-				// list to have upper bound of test range
 				else if (lastMerged.overlapsLowBound(rangeToCheck)) {
+					// The low bound of the range we're checking is straddled by the last merged range,
+					// but is not fully contained within. In this case, we update the last merged range's
+					// upper bound to the upper bound of the range we're checking.
 					// TODO: dave 2018-12-15 maybe change so we're just setting the upper bound of the last one instead of
 					// creating a new one.
 					mergedRanges.add(new ZipCodeRange(lastMerged.getLowerBound(), rangeToCheck.getUpperBound()));
