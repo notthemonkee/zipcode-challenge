@@ -71,9 +71,8 @@ public class ZipCodeRangeSetTest {
 	}
 
 
-
 	@Test
-	public void clear_emptiesSet(){
+	public void clear_emptiesSet() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
 		rangeSet.add("65659", "76767")
 			 .add("95630", "98865");
@@ -84,6 +83,7 @@ public class ZipCodeRangeSetTest {
 
 		assertEquals("Expected set to have zero items after clearing", 0, rangeSet.getAllRanges().size());
 	}
+
 
 	/**
 	 * Verifies that the result of merging zero {@link ZipCodeRange} items is an empty set.
