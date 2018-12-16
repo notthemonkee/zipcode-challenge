@@ -7,16 +7,28 @@ import static org.junit.Assert.*;
 public class ZipCodeRangeTest {
 
 
-	@Test
-	public void constructor_boundsCannotBeNull() {
-		fail("Not implemented");
+	// TODO: dave 2018-12-16 flesh this out with parameterized tests
+
+	@Test(expected = java.lang.IllegalArgumentException.class)
+	public void constructor_zip1Null() {
+		ZipCodeRange range = new ZipCodeRange(null, "89565");
 	}
 
-
-	@Test
-	public void constructor_boundsMustBeValidZip() {
-		fail("Not implemented");
+	@Test(expected = java.lang.IllegalArgumentException.class)
+	public void constructor_zip2Null() {
+		ZipCodeRange range = new ZipCodeRange("45589", null);
 	}
+
+	@Test(expected = java.lang.IllegalArgumentException.class)
+	public void constructor_zip1NotValidZip() {
+		ZipCodeRange range = new ZipCodeRange("090", "45896");
+	}
+
+	@Test(expected = java.lang.IllegalArgumentException.class)
+	public void constructor_zip2NotValidZip() {
+		ZipCodeRange range = new ZipCodeRange("48796", "4568");
+	}
+
 
 	@Test
 	public void getLowerBound() {
@@ -63,6 +75,55 @@ public class ZipCodeRangeTest {
 		assertFalse("Expected " + range1 + " not to be less than " + range2, range1.isLessThan(range2));
 	}
 
+	@Test
+	public void isLessThan_whenNull() {
+		ZipCodeRange range1 = new ZipCodeRange("23456", "24567");
+		assertFalse("Expected " + range1 + " not to be less than null", range1.isLessThan(null));
+	}
+
+
+	@Test
+	public void isAdjacentLower_whenAdjacentLower() {
+		ZipCodeRange range1 = new ZipCodeRange("65656", "76768");
+		ZipCodeRange range2 = new ZipCodeRange("76769", "88778");
+		assertTrue("Expected " + range1 + " to be adjacent to lower " + range2, range1.isAdjacentToLower(range2));
+	}
+
+
+	@Test
+	public void isAdjacentLower_whenAdjacentHigher() {
+		ZipCodeRange range1 = new ZipCodeRange("87564", "87889");
+		ZipCodeRange range2 = new ZipCodeRange("87550", "87563");
+		assertFalse("Expected " + range1 + " not to be adjacent to lower " + range2, range1.isAdjacentToLower(range2));
+	}
+
+	@Test
+	public void isAdjacentLower_whenLower() {
+		ZipCodeRange range1 = new ZipCodeRange("12345", "12355");
+		ZipCodeRange range2 = new ZipCodeRange("12357", "65482");
+		assertFalse("Expected " + range1 + " not to be adjacent to lower " + range2, range1.isAdjacentToLower(range2));
+	}
+
+	@Test
+	public void isAdjacentLower_whenSame() {
+		ZipCodeRange range1 = new ZipCodeRange("23556", "56698");
+		ZipCodeRange range2 = new ZipCodeRange("23556", "56698");
+		assertFalse("Expected " + range1 + " not to be adjacent to lower " + range2, range1.isAdjacentToLower(range2));
+	}
+
+	@Test
+	public void isAdjacentLower_whenContains() {
+		ZipCodeRange range1 = new ZipCodeRange("10567", "10679");
+		ZipCodeRange range2 = new ZipCodeRange("10600", "10650");
+		assertFalse("Expected " + range1 + " not to be adjacent to lower " + range2, range1.isAdjacentToLower(range2));
+	}
+
+	@Test
+	public void isAdjacentLower_whenNull() {
+		ZipCodeRange range1 = new ZipCodeRange("65987", "78451");
+		assertFalse("Expected " + range1 + " not to be adjacent to lower null", range1.isAdjacentToLower(null));
+	}
+
 
 	@Test
 	public void overlapsLowBound_whenOverlaps() {
@@ -100,6 +161,12 @@ public class ZipCodeRangeTest {
 	}
 
 	@Test
+	public void overlapsLowBound_whenNull() {
+		ZipCodeRange range1 = new ZipCodeRange("42569", "56698");
+		assertFalse("Expected " + range1 + " to not overlap null", range1.overlapsLowBound(null));
+	}
+
+	@Test
 	public void equals_matchesSameInstance() {
 		ZipCodeRange range = new ZipCodeRange("65656", "47895");
 		assertTrue("Expected instance to be equal to itself.", range.equals(range));
@@ -113,6 +180,13 @@ public class ZipCodeRangeTest {
 	}
 
 	@Test
+	public void equals_noMatchWhenRangeReversed() {
+		ZipCodeRange range1 = new ZipCodeRange("24589", "75864");
+		ZipCodeRange range2 = new ZipCodeRange("75864", "24589");
+		assertTrue("Expected instances to be equal when range values are mirrors of each other.", range1.equals(range2));
+	}
+
+	@Test
 	public void equals_noMatchDifferentRange() {
 		ZipCodeRange range1 = new ZipCodeRange("77485", "46952");
 		ZipCodeRange range2 = new ZipCodeRange("14562", "75684");
@@ -120,15 +194,8 @@ public class ZipCodeRangeTest {
 	}
 
 	@Test
-	public void equals_noMatchWhenRangeReversed() {
-		ZipCodeRange range1 = new ZipCodeRange("24589", "75864");
-		ZipCodeRange range2 = new ZipCodeRange("75864", "24589");
-		assertFalse("Expected instances to be not equal when range values are mirrors of eachother.", range1.equals(range2));
-	}
-
-	@Test
 	public void equals_noMatchNull() {
-		ZipCodeRange range = new ZipCodeRange("98655", "998542");
+		ZipCodeRange range = new ZipCodeRange("98655", "99854");
 		assertFalse("Expected instances to be not equal when comparee is null", range.equals(null));
 	}
 

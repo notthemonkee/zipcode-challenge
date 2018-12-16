@@ -7,29 +7,26 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 
 	ZipCodeRange(String zip1, String zip2) {
 
-		String zip1Trim = zip1.trim();
-		String zip2Trim = zip2.trim();
-
-		// Both ZIP parameters must be valid upon construction.
+		// Both ZIP parameters must be valid upon construction of a ZipCodeRange.
 		// The upper and lower instance variables are final. We validate the both ZIP parameters so that we know
 		// once we've set them, we are safe to assume they are valid ZIPs of exactly five digits.
-		if (!USZipCodeValidator.isValidZip(zip1Trim)) {
+		if (!USZipCodeValidator.isValidZip(zip1)) {
 			throw new IllegalArgumentException("Parameter [zip1] must be a valid US ZIP code.");
 		}
 
-		if (!USZipCodeValidator.isValidZip(zip2Trim)) {
+		if (!USZipCodeValidator.isValidZip(zip2)) {
 			throw new IllegalArgumentException("Parameter [zip2] must be a valid US ZIP code.");
 		}
 
 		// TODO: dave 2018-12-15 unit test this
 		// Establish ZIP range lower/upper bounds allowing caller to pass them in either order.
-		if (zip1Trim.compareTo(zip2Trim) < 0) {
-			lowerBound = zip1Trim;
-			upperBound = zip2Trim;
+		if (zip1.compareTo(zip2) < 0) {
+			lowerBound = zip1;
+			upperBound = zip2;
 		}
 		else {
-			lowerBound = zip2Trim;
-			upperBound = zip1Trim;
+			lowerBound = zip2;
+			upperBound = zip1;
 		}
 
 	}
@@ -45,13 +42,10 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 	}
 
 
-	// TODO: dave 2018-12-15 need null checks in here.
-
 	boolean isSingleZipRange() {
 		return getLowerBound().equals(getUpperBound());
 	}
 
-	// TODO: dave 2018-12-15 unit test with null;
 	boolean isLessThan(ZipCodeRange range) {
 		if (range == null) {
 			return false;
@@ -59,23 +53,22 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 		return getUpperBound().compareTo(range.getLowerBound()) < 0;
 	}
 
-	// TODO: dave 2018-12-15 unit test with null;
-	boolean overlapsLowBound(ZipCodeRange range) {
-		if (range == null) {
-			return false;
-		}
-		return (getUpperBound().compareTo(range.getLowerBound()) > 0)
-			 && (getUpperBound().compareTo(range.getUpperBound()) < 0);
-	}
 
-	// TODO: dave 2018-12-15 unit test
-	boolean isAdjacentLower(ZipCodeRange range) {
+	boolean isAdjacentToLower(ZipCodeRange range) {
 		if (range == null) {
 			return false;
 		}
 		int myUpperVal = Integer.parseInt(getUpperBound());
 		int rangeLowerVal = Integer.parseInt(range.getLowerBound());
 		return rangeLowerVal == myUpperVal + 1;
+	}
+
+	boolean overlapsLowBound(ZipCodeRange range) {
+		if (range == null) {
+			return false;
+		}
+		return (getUpperBound().compareTo(range.getLowerBound()) > 0)
+			 && (getUpperBound().compareTo(range.getUpperBound()) < 0);
 	}
 
 	private String getCompareToken() {

@@ -44,7 +44,7 @@ public class ZipCodeRangeCollection {
 			else {
 
 				ZipCodeRange lastMerged = mergedRanges.last();
-				if (lastMerged.isAdjacentLower(rangeToCheck) || lastMerged.overlapsLowBound(rangeToCheck)) {
+				if (lastMerged.isAdjacentToLower(rangeToCheck) || lastMerged.overlapsLowBound(rangeToCheck)) {
 					// TODO: dave 2018-12-15 maybe change so we're just setting the upper bound of the last one instead of
 					// creating a new one.
 					mergedRanges.add(new ZipCodeRange(lastMerged.getLowerBound(), rangeToCheck.getUpperBound()));
