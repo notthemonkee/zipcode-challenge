@@ -6,17 +6,45 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 
+/**
+ * Represents a sorted set of {@link ZipCodeRange} items.
+ * <p>
+ * Allows ranges to be added to the set in any order and can return a new set of ranges,
+ * merged down to the minimum number of ZipCodeRange items to still represent all the ranges.
+ */
 public class ZipCodeRangeSet {
 
+	/**
+	 * Contains all the distinct {@link ZipCodeRange}, in order, that have been added to this set.
+	 */
 	private final SortedSet<ZipCodeRange> zipRanges = new TreeSet<>();
 
 
-	ZipCodeRangeSet add(String lowerBound, String upperBound) {
-		zipRanges.add(new ZipCodeRange(lowerBound, upperBound));
+	/**
+	 * Add a new range of ZIP codes to this set from ZIP code Strings.
+	 * <p>
+	 * ZIP codes can be supplied in any order and my be the same value. Duplicate ranges will be skipped.
+	 * Calls to this method can be chained together.
+	 *
+	 * @param zip1 one bound of the ZIP code range
+	 * @param zip2 second bound of the ZIP code range
+	 * @return a reference to this ZIpCodeRangeSet
+	 */
+	ZipCodeRangeSet add(String zip1, String zip2) {
+		zipRanges.add(new ZipCodeRange(zip1, zip2));
 		return this;
 	}
 
 
+	/**
+	 * Add a new {@link ZipCodeRange}to this set.
+	 * <p>
+	 * Duplicate ranges will be skipped.
+	 * Calls to this method can be chained together.
+	 *
+	 * @param zipCodeRange one bound of the ZIP code range
+	 * @return a reference to this ZIpCodeRangeSet
+	 */
 	ZipCodeRangeSet add(ZipCodeRange zipCodeRange) {
 		if (zipCodeRange != null) {
 			zipRanges.add(zipCodeRange);
@@ -25,11 +53,33 @@ public class ZipCodeRangeSet {
 	}
 
 
+	// TODO: dave 2018-12-16 maybe kill this since it's only used for unit testing.
+
+
+	/**
+	 * Provides access to a copy of this set.
+	 *
+	 * @return a new TreeSet which is an independent copy of the internal zipRanges set.
+	 */
 	Set<ZipCodeRange> getAllRanges() {
 		return new TreeSet<>(zipRanges);
 	}
 
 
+	/**
+	 * Creates a single, ordered set of all {@link ZipCodeRange}, merging and collapsing down to the minimum
+	 * number of ranges required to encompass all cases.
+	 * <p>
+	 * Basic rules:
+	 * <ul>
+	 * <li>Any range that is completely contained within another range will be discarded</li>
+	 * <li>Any two ranges that are adjacent will be collapsed to one range with the lowest and highest bounds of the two</li>
+	 * <li>Any two ranges that overlap will be collapsed to one range with the lowest and highest bounds of the two</li>
+	 * <li>Any range that has nothing in common with another range will be included as is</li>
+	 * </ul>
+	 *
+	 * @return A new {@code TreeSet<ZipCodeRange>} with the merged ranges in order.
+	 */
 	Set<ZipCodeRange> mergeRanges() {
 
 		if (zipRanges.isEmpty()) {
@@ -38,6 +88,10 @@ public class ZipCodeRangeSet {
 
 		SortedSet<ZipCodeRange> mergedRanges = new TreeSet<>();
 
+		// Build the new merged set by iterating over our overall zipRange set
+		// Since the base zipRange set is ordered (based on how ZipCodeRange defines ordering), we know we're already
+		// adding them in order. Knowing they are in order also simplifies the logic needed to determine if one range
+		// contains the next, is adjacent to the next or overlaps the next range
 		for (ZipCodeRange rangeToCheck : zipRanges) {
 
 			// Nothing in our merge list yet, add the first range.
@@ -48,13 +102,15 @@ public class ZipCodeRangeSet {
 
 				ZipCodeRange lastMerged = mergedRanges.last();
 
+				// We really only have two cases to deal with here, we're either replacing the last merged range
+				// with a new one that covers a span from two ranges, or we're adding a new, independent range.
+				// If the range we're testing is the same as, or contained by the last merged range, then we can
+				// just skip it and move on.
 				if (lastMerged.isAdjacentToLower(rangeToCheck) || lastMerged.overlapsLowBound(rangeToCheck)) {
 					mergedRanges.remove(lastMerged);
 					mergedRanges.add(new ZipCodeRange(lastMerged.getLowerBound(), rangeToCheck.getUpperBound()));
 				}
 				else if (lastMerged.isLessThan(rangeToCheck)) {
-					// The low bound of the range we're checking is above the upper bound of the
-					// last merge range so we just append this range to the end of the merged ranges.
 					mergedRanges.add(rangeToCheck);
 				}
 
