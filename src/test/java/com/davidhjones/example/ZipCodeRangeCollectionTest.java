@@ -4,55 +4,84 @@ import org.junit.Test;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
+// TODO: dave 2018-12-16 find/replace collection with set
+
+/**
+ * Unit test suite for the ZipCodeRangeCollection class.
+ */
 public class ZipCodeRangeCollectionTest {
 
+	/**
+	 * Verifies that a new ZipCodeRangeCollection can be added from two String parameters.
+	 */
 	@Test
-	public void add_byBounds() {
-		ZipCodeRangeCollection collection = new ZipCodeRangeCollection();
+	public void add_byStringBounds() {
+		ZipCodeRangeCollection rangeSet = new ZipCodeRangeCollection();
 
-		assertEquals("Expected new collection to have zero items", 0, collection.getAllRanges().size());
+		assertEquals("Expected new set to have zero items", 0, rangeSet.getAllRanges().size());
 
-		collection.add("12569", "25698");
-		assertEquals("Expected collection to have one item after adding one range", 1, collection.getAllRanges().size());
+		rangeSet.add("12569", "25698");
+		assertEquals("Expected set to have one item after adding one range from String params", 1, rangeSet.getAllRanges().size());
 	}
 
+
+	/**
+	 * Verifies that a new ZipCodeRangeCollection can be added from a single {@link ZipCodeRange} parameter.
+	 */
 	@Test
 	public void add_byRanges() {
-		ZipCodeRangeCollection collection = new ZipCodeRangeCollection();
+		ZipCodeRangeCollection rangeSet = new ZipCodeRangeCollection();
 
-		assertEquals("Expected new collection to have zero items", 0, collection.getAllRanges().size());
+		assertEquals("Expected new set to have zero items", 0, rangeSet.getAllRanges().size());
 
-		collection.add(new ZipCodeRange("58965", "45878"));
-		assertEquals("Expected collection to have one item after adding one range", 1, collection.getAllRanges().size());
+		rangeSet.add(new ZipCodeRange("58965", "45878"));
+		assertEquals("Expected set to have one item after adding one range", 1, rangeSet.getAllRanges().size());
 	}
 
 
+	/**
+	 * Verifies that a newly constructed ZipCodeRangeCollection contains no items.
+	 */
 	@Test
-	public void getAllRanges_emptyCollection() {
-		ZipCodeRangeCollection collection = new ZipCodeRangeCollection();
-		assertEquals("Expected new collection to have zero items", 0, collection.getAllRanges().size());
+	public void getAllRanges_emptySet() {
+		ZipCodeRangeCollection rangeSet = new ZipCodeRangeCollection();
+		assertEquals("Expected new set to have zero items", 0, rangeSet.getAllRanges().size());
 	}
 
 
+	/**
+	 * Verifies that we can get back the {@link ZipCodeRange} items from a populated ZipCodeRangeCollection.
+	 */
 	@Test
 	public void getAllRanges_populatedCollection() {
 		ZipCodeRangeCollection collection = new ZipCodeRangeCollection();
-		collection.add("65659", "07974")
+		collection.add("65659", "76767")
 			 .add("95630", "98865");
+
 		assertEquals("Expected collection to have two items after adding two ranges", 2, collection.getAllRanges().size());
+		ZipCodeRange[] ranges = collection.getAllRanges().toArray(new ZipCodeRange[collection.getAllRanges().size()]);
+
+		assertEquals("Expected first range lower bound to be 65659", ranges[0].getLowerBound(), "65659");
+		assertEquals("Expected first range upper bound to be 76767", ranges[0].getUpperBound(), "76767");
+
+		assertEquals("Expected second range lower bound to be 95630", ranges[1].getLowerBound(), "95630");
+		assertEquals("Expected second range upper bound to be 98865", ranges[1].getUpperBound(), "98865");
 	}
 
 
+	/**
+	 * Verifies that the result of merging zero {@link ZipCodeRange} items is an empty set.
+	 */
 	@Test
 	public void mergeRanges_whenNoRanges() {
 		ZipCodeRangeCollection collection = new ZipCodeRangeCollection();
 		Set<ZipCodeRange> ranges = collection.mergeRanges();
 		assertTrue("Expected range to be empty when none have been added.", ranges.isEmpty());
 	}
+
 
 	@Test
 	public void mergeRanges_whenOneRange() {
@@ -68,6 +97,13 @@ public class ZipCodeRangeCollectionTest {
 		assertEquals("Expected merged range lower bound to be 62539", ranges[0].getLowerBound(), "62539");
 		assertEquals("Expected merged range upper bound to be 70056", ranges[0].getUpperBound(), "70056");
 	}
+
+
+	@Test
+	public void mergeRanges_whenOutOfOrder() {
+		fail("Not implemented");
+	}
+
 
 	@Test
 	public void mergeRanges_whenAllSame() {
@@ -87,6 +123,7 @@ public class ZipCodeRangeCollectionTest {
 		assertEquals("Expected merged range upper bound to be 25698", ranges[0].getUpperBound(), "25698");
 	}
 
+
 	@Test
 	public void mergeRanges_whenAllAdjacent() {
 		// multiple ranges but they all stack up, merged is a collection of one with lower and upper = min/max of inputs
@@ -105,6 +142,7 @@ public class ZipCodeRangeCollectionTest {
 		assertEquals("Expected merged range lower bound to be 10001", ranges[0].getLowerBound(), "10001");
 		assertEquals("Expected merged range upper bound to be 10049", ranges[0].getUpperBound(), "10049");
 	}
+
 
 	@Test
 	public void mergeRanges_whenNoneAdjacent() {
@@ -132,6 +170,7 @@ public class ZipCodeRangeCollectionTest {
 		assertEquals("Expected fourth merged range lower bound to be 27002", ranges[3].getLowerBound(), "27002");
 		assertEquals("Expected fourth merged range upper bound to be 28000", ranges[3].getUpperBound(), "28000");
 	}
+
 
 	@Test
 	public void mergeRanges_whenHasOverlaps() {
@@ -206,6 +245,7 @@ public class ZipCodeRangeCollectionTest {
 		assertEquals("Expected third merged range lower bound to be 94600", ranges[2].getLowerBound(), "94600");
 		assertEquals("Expected third merged range upper bound to be 94699", ranges[2].getUpperBound(), "94699");
 	}
+
 
 	@Test
 	public void mergeRanges_challengeExample2() {
