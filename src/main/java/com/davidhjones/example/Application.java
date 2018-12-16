@@ -40,7 +40,7 @@ public class Application {
 		zips = new ZipCodeRangeCollection();
 		zips
 
-			 .add("00001","12343")
+			 .add("00001", "12343")
 			 .add("12345", "67890")
 			 .add("12345", "67890")
 			 .add("12345", "67890")

@@ -31,22 +31,20 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 	}
 
 
-
 	// TODO: dave 2018-12-15 need null checks in here.
 
 	boolean isSingleZipRange() {
 		return getLowerBound().equals(getUpperBound());
 	}
 
-	boolean contains(ZipCodeRange range) {
-		return (getLowerBound().compareTo(range.getLowerBound()) <= 0)
-			 && (getUpperBound().compareTo(range.getUpperBound()) >= 0);
-	}
-
 	boolean isLessThan(ZipCodeRange range) {
 		return getUpperBound().compareTo(range.getLowerBound()) < 0;
 	}
 
+	boolean overlapsLowBound(ZipCodeRange range) {
+		return (getUpperBound().compareTo(range.getLowerBound()) > 0)
+			 && (getUpperBound().compareTo(range.getUpperBound()) < 0);
+	}
 
 	// TODO: dave 2018-12-15 unit test
 	boolean isAdjacentLower(ZipCodeRange range) {
@@ -55,10 +53,6 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 		return rangeLowerVal == myUpperVal + 1;
 	}
 
-	boolean overlapsLowBound(ZipCodeRange range) {
-		return (getUpperBound().compareTo(range.getLowerBound()) > 0)
-			 && (getUpperBound().compareTo(range.getUpperBound()) < 0);
-	}
 
 	@Override
 	public boolean equals(Object comparee) {

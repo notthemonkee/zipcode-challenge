@@ -26,7 +26,7 @@ public class USZipCodeValidator {
 
 		// For a zip code to be valid in our system, it must be exactly 5 digits.
 		return zipCode.matches("^\\d\\d\\d\\d\\d$");
-		
+
 	}
 
 }
