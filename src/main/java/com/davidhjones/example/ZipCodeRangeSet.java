@@ -67,6 +67,14 @@ public class ZipCodeRangeSet {
 
 
 	/**
+	 * Removes all items from this set's zipRanges.
+	 */
+	void clear() {
+		zipRanges.clear();
+	}
+
+
+	/**
 	 * Creates a single, ordered set of all {@link ZipCodeRange}, merging and collapsing down to the minimum
 	 * number of ranges required to encompass all cases.
 	 * <p>
