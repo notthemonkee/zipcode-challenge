@@ -6,6 +6,18 @@ import static org.junit.Assert.*;
 
 public class ZipCodeRangeTest {
 
+
+	@Test
+	public void constructor_boundsCannotBeNull() {
+		fail("Not implemented");
+	}
+
+
+	@Test
+	public void constructor_boundsMustBeValidZip() {
+		fail("Not implemented");
+	}
+
 	@Test
 	public void getLowerBound() {
 		ZipCodeRange range = new ZipCodeRange("01234", "56789");
@@ -16,6 +28,18 @@ public class ZipCodeRangeTest {
 	public void getUpperBound() {
 		ZipCodeRange range = new ZipCodeRange("43210", "98765");
 		assertEquals("Expected upper bound to be 98765", "98765", range.getUpperBound());
+	}
+
+	@Test
+	public void isSingleZipRange_whenSame() {
+		ZipCodeRange range = new ZipCodeRange("12312", "12312");
+		assertTrue("Expected instance to be single zip range when upper and lower are the same", range.isSingleZipRange());
+	}
+
+	@Test
+	public void isSingleZipRange_whenDifferent() {
+		ZipCodeRange range = new ZipCodeRange("12312", "12311");
+		assertFalse("Expected instance not to be single zip range when upper and lower are different", range.isSingleZipRange());
 	}
 
 	@Test
