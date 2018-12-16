@@ -11,11 +11,11 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 		// Both ZIP parameters must be valid upon construction of a ZipCodeRange.
 		// The upper and lower instance variables are final. We validate the both ZIP parameters so that we know
 		// once we've set them, we are safe to assume they are valid ZIPs of exactly five digits.
-		if (!USZipCodeValidator.isValidZip(zip1)) {
+		if (!ZipCodeValidator.isValidZip(zip1)) {
 			throw new IllegalArgumentException("Parameter [zip1] must be a valid US ZIP code.");
 		}
 
-		if (!USZipCodeValidator.isValidZip(zip2)) {
+		if (!ZipCodeValidator.isValidZip(zip2)) {
 			throw new IllegalArgumentException("Parameter [zip2] must be a valid US ZIP code.");
 		}
 

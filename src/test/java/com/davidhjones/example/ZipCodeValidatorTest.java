@@ -6,9 +6,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit test suite for {@link USZipCodeValidator}
+ * Unit test suite for {@link ZipCodeValidator}
  */
-public class USZipCodeValidatorTest {
+public class ZipCodeValidatorTest {
 
 	/**
 	 * Test that a string of five digits is a valid US ZIP code.
@@ -17,7 +17,7 @@ public class USZipCodeValidatorTest {
 	public void isValid_validZipCode() {
 
 		String validZip = "01234";
-		assertTrue("Expected " + validZip + " to be a valid zip code.", USZipCodeValidator.isValidZip(validZip));
+		assertTrue("Expected " + validZip + " to be a valid zip code.", ZipCodeValidator.isValidZip(validZip));
 	}
 
 
@@ -28,7 +28,7 @@ public class USZipCodeValidatorTest {
 	public void isValid_shortZip() {
 
 		String shortZip = "4567";
-		assertFalse("Expected " + shortZip + " to be an invalid zip code.", USZipCodeValidator.isValidZip(shortZip));
+		assertFalse("Expected " + shortZip + " to be an invalid zip code.", ZipCodeValidator.isValidZip(shortZip));
 	}
 
 
@@ -39,7 +39,7 @@ public class USZipCodeValidatorTest {
 	public void isValid_longZip() {
 
 		String longZip = "987654";
-		assertFalse("Expected " + longZip + " to be an invalid zip code.", USZipCodeValidator.isValidZip(longZip));
+		assertFalse("Expected " + longZip + " to be an invalid zip code.", ZipCodeValidator.isValidZip(longZip));
 	}
 
 
@@ -50,7 +50,7 @@ public class USZipCodeValidatorTest {
 	public void isValid_alphaCharacterZip() {
 
 		String alphaZip = "45X67";
-		assertFalse("Expected " + alphaZip + " to be an invalid zip code.", USZipCodeValidator.isValidZip(alphaZip));
+		assertFalse("Expected " + alphaZip + " to be an invalid zip code.", ZipCodeValidator.isValidZip(alphaZip));
 	}
 
 
@@ -60,7 +60,7 @@ public class USZipCodeValidatorTest {
 	@Test
 	public void isValid_blankStringZip() {
 
-		assertFalse("Expected blank string to be an invalid zip code.", USZipCodeValidator.isValidZip(""));
+		assertFalse("Expected blank string to be an invalid zip code.", ZipCodeValidator.isValidZip(""));
 	}
 
 
@@ -70,7 +70,7 @@ public class USZipCodeValidatorTest {
 	@Test
 	public void isValid_nullZip() {
 
-		assertFalse("Expected null to be an invalid zip code.", USZipCodeValidator.isValidZip(null));
+		assertFalse("Expected null to be an invalid zip code.", ZipCodeValidator.isValidZip(null));
 	}
 
 }

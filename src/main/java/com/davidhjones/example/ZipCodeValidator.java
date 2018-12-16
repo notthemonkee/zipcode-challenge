@@ -3,11 +3,10 @@ package com.davidhjones.example;
 /**
  * A simple validator for US ZIP codes.
  * <p>
- * <p>
  * This validator is intended for use in a code challenge and so it provides
  * only a single method for doing basic validation of US ZIP codes.
  */
-public class USZipCodeValidator {
+public class ZipCodeValidator {
 
 	/**
 	 * Determines if the passed String is a valid US ZIP code.
