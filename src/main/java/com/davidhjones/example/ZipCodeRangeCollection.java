@@ -11,7 +11,9 @@ public class ZipCodeRangeCollection {
 
 
 	public ZipCodeRangeCollection add(ZipCodeRange zipCodeRange) {
-		zipRanges.add(zipCodeRange);
+		if (zipCodeRange != null) {
+			zipRanges.add(zipCodeRange);
+		}
 		return this;
 	}
 
