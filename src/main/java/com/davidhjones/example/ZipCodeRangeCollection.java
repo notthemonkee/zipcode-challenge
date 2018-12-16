@@ -30,6 +30,10 @@ public class ZipCodeRangeCollection {
 
 		for (ZipCodeRange rangeToCheck : zipRanges) {
 
+
+			// TODO: dave 2018-12-15 need to check for nulls in here
+			// does treeset allow nulls
+
 			// If the merged list is empty, just add the range to check
 			if (mergedRanges.isEmpty()) {
 				mergedRanges.add(rangeToCheck);

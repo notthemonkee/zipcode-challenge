@@ -19,6 +19,91 @@ public class ZipCodeRangeTest {
 	}
 
 	@Test
+	public void isLessThan_whenLess() {
+		ZipCodeRange range1 = new ZipCodeRange("11111", "22222");
+		ZipCodeRange range2 = new ZipCodeRange("22223", "33333");
+		assertTrue("Expected " + range1 + " to be less than " + range2, range1.isLessThan(range2));
+	}
+
+	@Test
+	public void isLessThan_whenSame() {
+		ZipCodeRange range1 = new ZipCodeRange("21212", "31313");
+		ZipCodeRange range2 = new ZipCodeRange("31313", "46464");
+		assertFalse("Expected " + range1 + " not to be less than " + range2, range1.isLessThan(range2));
+	}
+
+	@Test
+	public void isLessThan_whenGreater() {
+		ZipCodeRange range1 = new ZipCodeRange("65656", "76768");
+		ZipCodeRange range2 = new ZipCodeRange("76767", "88778");
+		assertFalse("Expected " + range1 + " not to be less than " + range2, range1.isLessThan(range2));
+	}
+
+	@Test
+	public void contains_whenContains() {
+		ZipCodeRange range1 = new ZipCodeRange("34500", "34600");
+		ZipCodeRange range2 = new ZipCodeRange("34501", "34599");
+		assertTrue("Expected " + range1 + " to contain " + range2, range1.contains(range2));
+	}
+
+	@Test
+	public void contains_whenSame() {
+		ZipCodeRange range1 = new ZipCodeRange("89000", "99000");
+		ZipCodeRange range2 = new ZipCodeRange("89000", "99000");
+		assertTrue("Expected " + range1 + " to contain " + range2, range1.contains(range2));
+	}
+
+	@Test
+	public void contains_whenLessThan() {
+		ZipCodeRange range1 = new ZipCodeRange("56988", "65880");
+		ZipCodeRange range2 = new ZipCodeRange("56987", "65880");
+		assertFalse("Expected " + range1 + " to not contain " + range2, range1.contains(range2));
+	}
+
+	@Test
+	public void contains_whenGreaterThan() {
+		ZipCodeRange range1 = new ZipCodeRange("34777", "47888");
+		ZipCodeRange range2 = new ZipCodeRange("34777", "47889");
+		assertFalse("Expected " + range1 + " to not contain " + range2, range1.contains(range2));
+	}
+
+
+	@Test
+	public void overlapsLowBound_whenOverlaps() {
+		ZipCodeRange range1 = new ZipCodeRange("34500", "34601");
+		ZipCodeRange range2 = new ZipCodeRange("34600", "36522");
+		assertTrue("Expected " + range1 + " to overlap the lower bound of " + range2, range1.overlapsLowBound(range2));
+	}
+
+	@Test
+	public void overlapsLowBound_whenSame() {
+		ZipCodeRange range1 = new ZipCodeRange("16522", "45889");
+		ZipCodeRange range2 = new ZipCodeRange("45889", "56999");
+		assertFalse("Expected " + range1 + " to not overlap the lower bound of " + range2, range1.overlapsLowBound(range2));
+	}
+
+	@Test
+	public void overlapsLowBound_whenContains() {
+		ZipCodeRange range1 = new ZipCodeRange("33569", "35669");
+		ZipCodeRange range2 = new ZipCodeRange("35600", "35660");
+		assertFalse("Expected " + range1 + " to not overlap the lower bound of " + range2, range1.overlapsLowBound(range2));
+	}
+
+	@Test
+	public void overlapsLowBound_whenLessThan() {
+		ZipCodeRange range1 = new ZipCodeRange("22569", "27880");
+		ZipCodeRange range2 = new ZipCodeRange("27881", "32333");
+		assertFalse("Expected " + range1 + " to not overlap the lower bound of " + range2, range1.overlapsLowBound(range2));
+	}
+
+	@Test
+	public void overlapsLowBound_whenGreaterThan() {
+		ZipCodeRange range1 = new ZipCodeRange("42569", "56698");
+		ZipCodeRange range2 = new ZipCodeRange("30230", "30456");
+		assertFalse("Expected " + range1 + " to not overlap the lower bound of " + range2, range1.overlapsLowBound(range2));
+	}
+
+	@Test
 	public void equals_matchesSameInstance() {
 		ZipCodeRange range = new ZipCodeRange("65656", "47895");
 		assertTrue("Expected instance to be equal to itself.", range.equals(range));

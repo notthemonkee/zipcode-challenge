@@ -6,6 +6,9 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 	private final String upperBound;
 	private final String boundsToken;
 
+
+	// TODO: dave 2018-12-15 need a constructor that takes a string and parses it.
+
 	public ZipCodeRange(String zip1, String zip2) {
 
 		// TODO:validate each
@@ -28,17 +31,18 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 	}
 
 
-	boolean isLessThan(ZipCodeRange range) {
-		return (getUpperBound().compareTo(range.getLowerBound()) < 0);
-	}
-
 	boolean contains(ZipCodeRange range) {
 		return (getLowerBound().compareTo(range.getLowerBound()) <= 0)
 			 && (getUpperBound().compareTo(range.getUpperBound()) >= 0);
 	}
 
+	boolean isLessThan(ZipCodeRange range) {
+		return getUpperBound().compareTo(range.getLowerBound()) < 0;
+	}
+
 	boolean overlapsLowBound(ZipCodeRange range) {
-		return getUpperBound().compareTo(range.getLowerBound()) >= 1;
+		return (getUpperBound().compareTo(range.getLowerBound()) > 0)
+			 && (getUpperBound().compareTo(range.getUpperBound()) < 0);
 	}
 
 
