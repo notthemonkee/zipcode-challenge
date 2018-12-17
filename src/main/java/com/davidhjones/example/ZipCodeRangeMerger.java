@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ZipCodeRangeMerger {
+class ZipCodeRangeMerger {
 
 
 	/**
@@ -41,15 +41,16 @@ public class ZipCodeRangeMerger {
 	 * @return List of {@link ZipCodeRange} items for each range in the string
 	 */
 	private List<ZipCodeRange> parseRanges(String input) {
-		String rangeRegEx = "\\[\\s?\\d\\d\\d\\d\\d\\s?,\\s?\\d\\d\\d\\d\\d\\s?\\]";
+		String rangeRegEx = "\\[\\s*\\d\\d\\d\\d\\d\\s*,\\s*\\d\\d\\d\\d\\d\\s*\\]";
 
 		List<ZipCodeRange> ranges = new ArrayList<>();
 
 		Matcher matcher = Pattern.compile(rangeRegEx).matcher(input);
 
 		while (matcher.find()) {
-			String[] zips = matcher.group().replaceAll("[\\[\\]]", "").split(",");
-			ranges.add(new ZipCodeRange(zips[0], zips[1]));
+			// Remove brackets and white space from each match to get just zip1,zip2
+			String[] zips = matcher.group().replaceAll("[\\[\\]\\s]", "").split(",");
+			ranges.add(new ZipCodeRange(zips[0].trim(), zips[1].trim()));
 		}
 
 		return ranges;
