@@ -6,31 +6,27 @@ import static org.junit.Assert.*;
 
 public class ZipCodeRangeTest {
 
-
-	// TODO: dave 2018-12-16 flesh this out with parameterized tests
-
-
 	@Test(expected = java.lang.IllegalArgumentException.class)
 	public void constructor_zip1Null() {
-		ZipCodeRange range = new ZipCodeRange(null, "89565");
+		new ZipCodeRange(null, "89565");
 	}
 
 
 	@Test(expected = java.lang.IllegalArgumentException.class)
 	public void constructor_zip2Null() {
-		ZipCodeRange range = new ZipCodeRange("45589", null);
+		new ZipCodeRange("45589", null);
 	}
 
 
 	@Test(expected = java.lang.IllegalArgumentException.class)
 	public void constructor_zip1NotValidZip() {
-		ZipCodeRange range = new ZipCodeRange("090", "45896");
+		new ZipCodeRange("090", "45896");
 	}
 
 
 	@Test(expected = java.lang.IllegalArgumentException.class)
 	public void constructor_zip2NotValidZip() {
-		ZipCodeRange range = new ZipCodeRange("48796", "4568");
+		new ZipCodeRange("48796", "4568");
 	}
 
 
@@ -221,7 +217,7 @@ public class ZipCodeRangeTest {
 	@Test
 	public void equals_noMatchNull() {
 		ZipCodeRange range = new ZipCodeRange("98655", "99854");
-		assertFalse("Expected instances to be not equal when comparee is null", range.equals(null));
+		assertFalse("Expected instances to be not equal when compared to null", range.equals(null));
 	}
 
 }

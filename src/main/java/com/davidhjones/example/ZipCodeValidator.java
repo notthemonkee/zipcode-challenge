@@ -6,7 +6,7 @@ package com.davidhjones.example;
  * This validator is intended for use in a code challenge and so it provides
  * only a single method for doing basic validation of US ZIP codes.
  */
-public class ZipCodeValidator {
+class ZipCodeValidator {
 
 	/**
 	 * Determines if the passed String is a valid US ZIP code.
@@ -17,7 +17,7 @@ public class ZipCodeValidator {
 	 * @param zipCode the string to validate
 	 * @return true if the string is a valid US ZIP code, otherwise false.
 	 */
-	public static boolean isValidZip(String zipCode) {
+	static boolean isValidZip(String zipCode) {
 
 		if (zipCode == null) {
 			return false;

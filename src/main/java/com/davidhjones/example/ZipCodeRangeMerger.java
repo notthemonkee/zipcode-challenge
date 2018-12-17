@@ -19,6 +19,10 @@ class ZipCodeRangeMerger {
 	 */
 	String mergeRanges(String rawRanges) {
 
+		if (rawRanges == null || rawRanges.length() == 0) {
+			return "";
+		}
+
 		List<ZipCodeRange> parsedRanges = parseRanges(rawRanges);
 		ZipCodeRangeSet zipCodeRangeSet = new ZipCodeRangeSet();
 
@@ -43,10 +47,16 @@ class ZipCodeRangeMerger {
 	 * @return List of {@link ZipCodeRange} items for each range in the string
 	 */
 	private List<ZipCodeRange> parseRanges(String input) {
-		String rangeRegEx = "\\[\\s*\\d\\d\\d\\d\\d\\s*,\\s*\\d\\d\\d\\d\\d\\s*\\]";
 
 		List<ZipCodeRange> ranges = new ArrayList<>();
 
+		if (input == null) {
+			return ranges;
+		}
+
+		// pattern is [<five digits>,<five digits>] with whitespace allowed between brackets and digits and
+		// between digits and comma.
+		String rangeRegEx = "\\[\\s*\\d\\d\\d\\d\\d\\s*,\\s*\\d\\d\\d\\d\\d\\s*]";
 		Matcher matcher = Pattern.compile(rangeRegEx).matcher(input);
 
 		while (matcher.find()) {
@@ -59,12 +69,16 @@ class ZipCodeRangeMerger {
 	}
 
 
-	// TODO: dave 2018-12-16 unit test
 	private String buildRangeString(Set<ZipCodeRange> rangeSet) {
+
+		if (rangeSet == null || rangeSet.size() == 0) {
+			return "";
+		}
+
 		StringBuilder sb = new StringBuilder(rangeSet.size());
 
 		for (ZipCodeRange range : rangeSet) {
-			sb.append(range + " ");
+			sb.append(range).append(" ");
 		}
 
 		return sb.toString().trim();

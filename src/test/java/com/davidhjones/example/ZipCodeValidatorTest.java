@@ -55,7 +55,7 @@ public class ZipCodeValidatorTest {
 
 
 	/**
-	 * Test that a blank string is not a valid US ZIP codse.
+	 * Test that a blank string is not a valid US ZIP codes.
 	 */
 	@Test
 	public void isValid_blankStringZip() {

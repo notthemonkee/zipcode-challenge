@@ -6,6 +6,15 @@ import static org.junit.Assert.assertEquals;
 
 public class ZipCodeRangeMergerTest {
 
+
+	@Test
+	public void mergeRanges_whenNull() {
+		ZipCodeRangeMerger merger = new ZipCodeRangeMerger();
+		String mergedRanges = merger.mergeRanges(null);
+		assertEquals("Expected result to be empty string when null passed", "", mergedRanges);
+	}
+
+
 	@Test
 	public void mergeRanges_whenEmptyString() {
 		ZipCodeRangeMerger merger = new ZipCodeRangeMerger();
@@ -41,7 +50,7 @@ public class ZipCodeRangeMergerTest {
 	@Test
 	public void mergeRanges_withStringHavingOtherCharacters() {
 		ZipCodeRangeMerger merger = new ZipCodeRangeMerger();
-		String mergedRanges = merger.mergeRanges("apple [78874,89981] bananna [32256,36000] foo");
+		String mergedRanges = merger.mergeRanges("apple [78874,89981] banana [32256,36000] foo");
 		assertEquals("[32256,36000] [78874,89981]", mergedRanges);
 	}
 

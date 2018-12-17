@@ -12,7 +12,8 @@ import java.util.TreeSet;
  * Allows ranges to be added to the set in any order and can return a new set of ranges,
  * merged down to the minimum number of ZipCodeRange items to still represent all the ranges.
  */
-public class ZipCodeRangeSet {
+@SuppressWarnings("UnusedReturnValue")
+class ZipCodeRangeSet {
 
 	/**
 	 * Contains all the distinct {@link ZipCodeRange}, in order, that have been added to this set.
@@ -51,9 +52,6 @@ public class ZipCodeRangeSet {
 		}
 		return this;
 	}
-
-
-	// TODO: dave 2018-12-16 maybe kill this since it's only used for unit testing.
 
 
 	/**

@@ -1,6 +1,6 @@
 package com.davidhjones.example;
 
-public class ZipCodeRange implements Comparable<ZipCodeRange> {
+class ZipCodeRange implements Comparable<ZipCodeRange> {
 
 	private final String lowerBound;
 	private final String upperBound;
@@ -19,7 +19,6 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 			throw new IllegalArgumentException("Parameter [zip2] must be a valid US ZIP code.");
 		}
 
-		// TODO: dave 2018-12-15 unit test this
 		// Establish ZIP range lower/upper bounds allowing caller to pass them in either order.
 		if (zip1.compareTo(zip2) < 0) {
 			lowerBound = zip1;
@@ -81,15 +80,15 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 
 
 	@Override
-	public boolean equals(Object comparee) {
-		if (comparee == this) {
+	public boolean equals(Object obj) {
+		if (obj == this) {
 			return true;
 		}
-		else if (comparee == null) {
+		else if (obj == null) {
 			return false;
 		}
-		else if (comparee.getClass() == this.getClass()) {
-			return getCompareToken().equals(((ZipCodeRange) comparee).getCompareToken());
+		else if (obj.getClass() == this.getClass()) {
+			return getCompareToken().equals(((ZipCodeRange) obj).getCompareToken());
 		}
 		else {
 			return false;
@@ -110,8 +109,8 @@ public class ZipCodeRange implements Comparable<ZipCodeRange> {
 
 
 	@Override
-	public int compareTo(ZipCodeRange comparee) {
-		return getCompareToken().compareTo(comparee.getCompareToken());
+	public int compareTo(ZipCodeRange range) {
+		return getCompareToken().compareTo(range.getCompareToken());
 	}
 
 

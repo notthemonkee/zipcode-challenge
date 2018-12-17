@@ -6,6 +6,7 @@ package com.davidhjones.example;
  * <p>
  * See unit tests for comprehensive tests.
  */
+@SuppressWarnings("WeakerAccess")
 public class ZipCodeRangeMergeTester {
 
 	public static void main(String[] args) {
