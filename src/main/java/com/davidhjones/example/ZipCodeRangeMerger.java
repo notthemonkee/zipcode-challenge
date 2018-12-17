@@ -17,7 +17,7 @@ class ZipCodeRangeMerger {
 	 *                  comprised of sets of low and high bounds. e.g. [94133,94133] [94200,94299] [94600,94699]
 	 * @return a String of ZIP code ranges condensed down to the smallest number required to encompass all cases
 	 */
-	Set<ZipCodeRange> mergeRanges(String rawRanges) {
+	String mergeRanges(String rawRanges) {
 
 		List<ZipCodeRange> parsedRanges = parseRanges(rawRanges);
 		ZipCodeRangeSet zipCodeRangeSet = new ZipCodeRangeSet();
@@ -26,7 +26,9 @@ class ZipCodeRangeMerger {
 			zipCodeRangeSet.add(range);
 		}
 
-		return zipCodeRangeSet.mergeRanges();
+		Set<ZipCodeRange> rangeSet = zipCodeRangeSet.mergeRanges();
+
+		return buildRangeString(rangeSet);
 
 	}
 
@@ -54,5 +56,18 @@ class ZipCodeRangeMerger {
 		}
 
 		return ranges;
+	}
+
+
+	// TODO: dave 2018-12-16 unit test
+	private String buildRangeString(Set<ZipCodeRange> rangeSet) {
+		StringBuilder sb = new StringBuilder(rangeSet.size());
+
+		for (ZipCodeRange range : rangeSet) {
+			sb.append(range + " ");
+		}
+
+		return sb.toString().trim();
+
 	}
 }
