@@ -97,8 +97,16 @@ class ZipCodeRangeSet {
 				// just skip it and move on.
 				if (lastMerged.isAdjacentToLower(rangeToCheck) || lastMerged.overlapsLowBound(rangeToCheck)) {
 					mergedRanges.remove(lastMerged);
-					// TODO: dave 2018-12-17 throws
-					mergedRanges.add(new ZipCodeRange(lastMerged.getLowerBound(), rangeToCheck.getUpperBound()));
+					try {
+						mergedRanges.add(new ZipCodeRange(lastMerged.getLowerBound(), rangeToCheck.getUpperBound()));
+					} catch (IllegalArgumentException e) {
+						/*
+							NOTE: Simply writing a message to the console if we get invalid ZIPs when constructing this
+							ZipCodeRange. That shouldn't happen here since we're building from an existing ZipCodeRange.
+							We may want to improve on this error handling.
+						 */
+						System.out.println("Invalid ZIP code passed: [" + lastMerged.getLowerBound() + ", " + rangeToCheck.getUpperBound() + "]" + e.getMessage());
+					}
 				}
 				else if (lastMerged.isLessThan(rangeToCheck)) {
 					mergedRanges.add(rangeToCheck);

@@ -63,10 +63,21 @@ class ZipCodeRangeMerger {
 		Matcher matcher = Pattern.compile(rangeRegEx).matcher(input);
 
 		while (matcher.find()) {
+
 			// Remove brackets and white space from each match to get just zip1,zip2
 			String[] zips = matcher.group().replaceAll("[\\[\\]\\s]", "").split(",");
-			// TODO: dave 2018-12-17 throws
-			ranges.add(new ZipCodeRange(zips[0].trim(), zips[1].trim()));
+
+			try {
+				ranges.add(new ZipCodeRange(zips[0].trim(), zips[1].trim()));
+			} catch (IllegalArgumentException e) {
+				/*
+					NOTE: Simply writing a message to the console if we get invalid ZIPs when constructing this
+					ZipCodeRange. That shouldn't happen here since the regular expression is pulling only valid ZIPs.
+					We may want to improve on this error handling.
+				 */
+				System.out.println("Invalid ZIP code passed: [" + zips[0].trim() + ", " + zips[1].trim() + "]" + e.getMessage());
+			}
+
 		}
 
 		return ranges;
