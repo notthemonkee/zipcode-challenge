@@ -132,7 +132,7 @@ class ZipCodeRange implements Comparable<ZipCodeRange> {
 	 * bound but less than the other ranges upper bound.
 	 *
 	 * @param range the ZipCodeRange to compare
-	 * @return true if the range to compare is not null and this range overlaps, ostherwise false
+	 * @return true if the range to compare is not null and this range overlaps, otherwise false
 	 */
 	boolean overlapsLowBound(ZipCodeRange range) {
 		if (range == null) {
