@@ -1,5 +1,7 @@
-package com.davidhjones.example;
+package com.davidhjones.challenge;
 
+import com.davidhjones.challenge.ZipCodeRange;
+import com.davidhjones.challenge.ZipCodeRangeSet;
 import org.junit.Test;
 
 import java.util.Set;

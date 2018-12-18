@@ -1,4 +1,4 @@
-package com.davidhjones.example;
+package com.davidhjones.challenge;
 
 class ZipCodeRange implements Comparable<ZipCodeRange> {
 

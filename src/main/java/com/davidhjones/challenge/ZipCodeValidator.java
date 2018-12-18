@@ -1,4 +1,4 @@
-package com.davidhjones.example;
+package com.davidhjones.challenge;
 
 /**
  * A simple validator for US ZIP codes.

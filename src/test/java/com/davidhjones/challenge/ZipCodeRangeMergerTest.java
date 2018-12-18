@@ -1,5 +1,6 @@
-package com.davidhjones.example;
+package com.davidhjones.challenge;
 
+import com.davidhjones.challenge.ZipCodeRangeMerger;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

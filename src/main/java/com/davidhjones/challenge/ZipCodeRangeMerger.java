@@ -1,4 +1,4 @@
-package com.davidhjones.example;
+package com.davidhjones.challenge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,9 @@ class ZipCodeRangeMerger {
 	 * <p>
 	 * ZIP ranges are expected to be in the format [94133,94133]. This method will extract anything like that,
 	 * ignoring whitespace and any other characters in the string.
+	 *
+	 * NOTE: This parsing routine will just skip invalid ranges, i.e. those that aren't a pair of five digit sequences.
+	 * We may want to change this to throw an exception so we are aware of bad data.
 	 *
 	 * @param input String of ZIP code ranges
 	 * @return List of {@link ZipCodeRange} items for each range in the string

@@ -1,4 +1,4 @@
-package com.davidhjones.example;
+package com.davidhjones.challenge;
 
 
 import java.util.Set;
