@@ -1,6 +1,5 @@
 package com.davidhjones.challenge;
 
-import com.davidhjones.challenge.ZipCodeValidator;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

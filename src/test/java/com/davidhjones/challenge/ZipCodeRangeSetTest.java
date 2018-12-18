@@ -1,7 +1,5 @@
 package com.davidhjones.challenge;
 
-import com.davidhjones.challenge.ZipCodeRange;
-import com.davidhjones.challenge.ZipCodeRangeSet;
 import org.junit.Test;
 
 import java.util.Set;
@@ -14,19 +12,6 @@ import static org.junit.Assert.assertTrue;
  * Unit test suite for the ZipCodeRangeSet class.
  */
 public class ZipCodeRangeSetTest {
-
-	/**
-	 * Verifies that a new ZipCodeRangeSet can be added from two String parameters.
-	 */
-	@Test
-	public void add_byStringBounds() {
-		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-
-		assertEquals("Expected new set to have zero items", 0, rangeSet.getAllRanges().size());
-
-		rangeSet.add("12569", "25698");
-		assertEquals("Expected set to have one item after adding one range from String params", 1, rangeSet.getAllRanges().size());
-	}
 
 
 	/**
@@ -59,8 +44,8 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void getAllRanges_populatedSet() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("65659", "76767")
-			 .add("95630", "98865");
+		rangeSet.add(new ZipCodeRange("65659", "76767"))
+			 .add(new ZipCodeRange("95630", "98865"));
 
 		assertEquals("Expected set to have two items after adding two ranges", 2, rangeSet.getAllRanges().size());
 		ZipCodeRange[] ranges = rangeSet.getAllRanges().toArray(new ZipCodeRange[rangeSet.getAllRanges().size()]);
@@ -76,8 +61,8 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void clear_emptiesSet() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("65659", "76767")
-			 .add("95630", "98865");
+		rangeSet.add(new ZipCodeRange("65659", "76767"))
+			 .add(new ZipCodeRange("95630", "98865"));
 
 		assertEquals("Expected set to have two items after adding two ranges", 2, rangeSet.getAllRanges().size());
 
@@ -105,7 +90,7 @@ public class ZipCodeRangeSetTest {
 	public void mergeRanges_whenOneRange() {
 		// multiple ranges but all the same lower and upper bounds, merged is a set of one, and bounds same
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("62539", "70056");
+		rangeSet.add(new ZipCodeRange("62539", "70056"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 
@@ -124,9 +109,9 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void mergeRanges_whenOutOfOrder() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("35689", "45521")
-			 .add("21656", "28996")
-			 .add("10001", "10900");
+		rangeSet.add(new ZipCodeRange("35689", "45521"))
+			 .add(new ZipCodeRange("21656", "28996"))
+			 .add(new ZipCodeRange("10001", "10900"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 
@@ -151,10 +136,10 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void mergeRanges_whenAllSame() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("12569", "25698")
-			 .add("12569", "25698")
-			 .add("12569", "25698")
-			 .add("12569", "25698");
+		rangeSet.add(new ZipCodeRange("12569", "25698"))
+			 .add(new ZipCodeRange("12569", "25698"))
+			 .add(new ZipCodeRange("12569", "25698"))
+			 .add(new ZipCodeRange("12569", "25698"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 
@@ -173,11 +158,11 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void mergeRanges_whenAllAdjacent() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("10001", "10009")
-			 .add("10040", "10049")
-			 .add("10020", "10029")
-			 .add("10030", "10039")
-			 .add("10010", "10019");
+		rangeSet.add(new ZipCodeRange("10001", "10009"))
+			 .add(new ZipCodeRange("10040", "10049"))
+			 .add(new ZipCodeRange("10020", "10029"))
+			 .add(new ZipCodeRange("10030", "10039"))
+			 .add(new ZipCodeRange("10010", "10019"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 
@@ -196,10 +181,10 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void mergeRanges_whenNoneAdjacent() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("26002", "27000")
-			 .add("25002", "26000")
-			 .add("27002", "28000")
-			 .add("24000", "25000");
+		rangeSet.add(new ZipCodeRange("26002", "27000"))
+			 .add(new ZipCodeRange("25002", "26000"))
+			 .add(new ZipCodeRange("27002", "28000"))
+			 .add(new ZipCodeRange("24000", "25000"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 
@@ -226,10 +211,10 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void mergeRanges_whenHasOverlaps() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("32185", "34000")
-			 .add("33999", "36890")
-			 .add("37000", "37510")
-			 .add("37500", "45000");
+		rangeSet.add(new ZipCodeRange("32185", "34000"))
+			 .add(new ZipCodeRange("33999", "36890"))
+			 .add(new ZipCodeRange("37000", "37510"))
+			 .add(new ZipCodeRange("37500", "45000"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 
@@ -253,10 +238,10 @@ public class ZipCodeRangeSetTest {
 
 		// multiple ranges, some of which are fully contained within other ranges
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("56000", "57000")
-			 .add("56001", "56999")
-			 .add("82757", "90000")
-			 .add("35662", "48562");
+		rangeSet.add(new ZipCodeRange("56000", "57000"))
+			 .add(new ZipCodeRange("56001", "56999"))
+			 .add(new ZipCodeRange("82757", "90000"))
+			 .add(new ZipCodeRange("35662", "48562"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 
@@ -281,9 +266,9 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void mergeRanges_challengeExample1() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("94113", "94113")
-			 .add("94200", "94299")
-			 .add("94600", "94699");
+		rangeSet.add(new ZipCodeRange("94113", "94113"))
+			 .add(new ZipCodeRange("94200", "94299"))
+			 .add(new ZipCodeRange("94600", "94699"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 
@@ -307,9 +292,9 @@ public class ZipCodeRangeSetTest {
 	@Test
 	public void mergeRanges_challengeExample2() {
 		ZipCodeRangeSet rangeSet = new ZipCodeRangeSet();
-		rangeSet.add("94113", "94113")
-			 .add("94200", "94299")
-			 .add("94226", "94399");
+		rangeSet.add(new ZipCodeRange("94113", "94113"))
+			 .add(new ZipCodeRange("94200", "94299"))
+			 .add(new ZipCodeRange("94226", "94399"));
 
 		Set<ZipCodeRange> mergedRanges = rangeSet.mergeRanges();
 

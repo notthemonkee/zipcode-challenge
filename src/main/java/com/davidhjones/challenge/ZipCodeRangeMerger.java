@@ -42,7 +42,7 @@ class ZipCodeRangeMerger {
 	 * <p>
 	 * ZIP ranges are expected to be in the format [94133,94133]. This method will extract anything like that,
 	 * ignoring whitespace and any other characters in the string.
-	 *
+	 * <p>
 	 * NOTE: This parsing routine will just skip invalid ranges, i.e. those that aren't a pair of five digit sequences.
 	 * We may want to change this to throw an exception so we are aware of bad data.
 	 *
@@ -65,6 +65,7 @@ class ZipCodeRangeMerger {
 		while (matcher.find()) {
 			// Remove brackets and white space from each match to get just zip1,zip2
 			String[] zips = matcher.group().replaceAll("[\\[\\]\\s]", "").split(",");
+			// TODO: dave 2018-12-17 throws
 			ranges.add(new ZipCodeRange(zips[0].trim(), zips[1].trim()));
 		}
 

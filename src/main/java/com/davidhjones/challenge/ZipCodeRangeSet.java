@@ -21,22 +21,6 @@ class ZipCodeRangeSet {
 
 
 	/**
-	 * Add a new range of ZIP codes to this set from ZIP code Strings.
-	 * <p>
-	 * ZIP codes can be supplied in any order and my be the same value. Duplicate ranges will be skipped.
-	 * Calls to this method can be chained together.
-	 *
-	 * @param zip1 one bound of the ZIP code range
-	 * @param zip2 second bound of the ZIP code range
-	 * @return a reference to this ZIpCodeRangeSet
-	 */
-	ZipCodeRangeSet add(String zip1, String zip2) {
-		zipRanges.add(new ZipCodeRange(zip1, zip2));
-		return this;
-	}
-
-
-	/**
 	 * Add a new {@link ZipCodeRange}to this set.
 	 * <p>
 	 * Duplicate ranges will be skipped.
@@ -113,6 +97,7 @@ class ZipCodeRangeSet {
 				// just skip it and move on.
 				if (lastMerged.isAdjacentToLower(rangeToCheck) || lastMerged.overlapsLowBound(rangeToCheck)) {
 					mergedRanges.remove(lastMerged);
+					// TODO: dave 2018-12-17 throws
 					mergedRanges.add(new ZipCodeRange(lastMerged.getLowerBound(), rangeToCheck.getUpperBound()));
 				}
 				else if (lastMerged.isLessThan(rangeToCheck)) {
