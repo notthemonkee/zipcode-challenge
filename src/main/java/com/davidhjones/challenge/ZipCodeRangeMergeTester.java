@@ -6,12 +6,11 @@ package com.davidhjones.challenge;
  * <p>
  * See unit tests for comprehensive tests.
  */
-@SuppressWarnings("WeakerAccess")
 public class ZipCodeRangeMergeTester {
 
 	public static void main(String[] args) {
 
-		// Challenge exmpale 1: all ranges distinct, remains three ranges
+		// Challenge example 1: all ranges distinct, remains three ranges
 		testRange("[94133,94133] [94200,94299] [94600,94699]");
 
 		// Challenge example 2: one range overlaps, merges down to two ranges
