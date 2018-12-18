@@ -1,5 +1,7 @@
 # ZIP Code Parser Challenge
 
+[![Build Status](https://travis-ci.com/notthemonkee/zipcode-challenge.svg?token=jenFxeFD6krdjUEjvNbL&branch=master)](https://travis-ci.com/notthemonkee/zipcode-challenge)
+
 ## Overview
 This is a small example application that shows one approach to solve the task of taking a collection of 5-digit ZIP code ranges and producing the minimum number of ranges required to represent the same restrictions as the input.
 
